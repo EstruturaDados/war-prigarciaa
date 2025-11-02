@@ -16,9 +16,9 @@
 
 // Inclusão das bibliotecas padrão necessárias para entrada/saída, alocação de memória, manipulação de strings e tempo.
 
+
 // --- Constantes Globais ---
 // Definem valores fixos para o número de territórios, missões e tamanho máximo de strings, facilitando a manutenção.
-
 // --- Estrutura de Dados ---
 // Define a estrutura para um território, contendo seu nome, a cor do exército que o domina e o número de tropas.
 
@@ -31,7 +31,7 @@
 
 // --- Função Principal (main) ---
 // Função principal que orquestra o fluxo do jogo, chamando as outras funções em ordem.
-int main() {
+
     // 1. Configuração Inicial (Setup):
     // - Define o locale para português.
     // - Inicializa a semente para geração de números aleatórios com base no tempo atual.
@@ -49,10 +49,7 @@ int main() {
     // - Pausa a execução para que o jogador possa ler os resultados antes da próxima rodada.
 
     // 3. Limpeza:
-    // - Ao final do jogo, libera a memória alocada para o mapa para evitar vazamentos de memória.
-
-    return 0;
-}
+   // - Ao final do jogo, libera a memória alocada para o mapa para evitar vazamentos de memória.
 
 // --- Implementação das Funções ---
 
@@ -96,3 +93,72 @@ int main() {
 
 // limparBufferEntrada():
 // Função utilitária para limpar o buffer de entrada do teclado (stdin), evitando problemas com leituras consecutivas de scanf e getchar.
+
+#include <stdio.h>
+#include <stdlib.h> 
+
+// --- Constantes Globais ---
+#define MAX_TERRITORIO 5 // Número fixo de territórios a cadastrar
+
+
+// --- Definição da Estrutura (Struct) ---
+struct Territorio {
+    char nome [30];
+    char cor [10];
+    int tropas;
+};  
+
+// --- Função para limpar o bufer de entrada ---
+void limparBuffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
+
+// --- Função Principal (main) ---
+int main() {
+    printf("===================================\n");
+    printf("Desafio Jogo War - Nível Novato!\n");
+    printf("===================================\n");
+
+
+    // Declaração de um vetor de structs, com 5 posições.
+    struct Territorio mapa[MAX_TERRITORIO];
+   
+    // Cadastro dos territórios
+    printf ("\nVamos cadastrar os %d territórios do nosso mundo.\n", MAX_TERRITORIO);
+    
+    // Laço para preencher os dados de cada território.
+    for (int i = 0; i < MAX_TERRITORIO; i++) {
+        printf("\n--- Território %d ---\n", i + 1);
+
+        printf("Nome do território: ");
+        scanf(" %29[^\n]", mapa[i].nome); // Lê até 29 caracteres, evitando overflow
+
+        printf("Cor do exército: ");
+        scanf(" %9s", mapa[i].cor); // Lê a cor (sem espaços)
+
+        printf("Quantidade de tropas: ");
+        scanf("%d", &mapa[i].tropas);
+        limparBuffer();
+    }
+
+    // --- Exibição dos dados cadastrados ---
+    printf("=======================================\n");
+    printf("\n===== TERRITÓRIOS CADASTRADOS =====\n");
+    printf("=====================================\n");
+
+    for (int i = 0; i < MAX_TERRITORIO; i++) {
+        printf("\nTerritório %d:\n", i + 1);
+        printf("Nome: %s\n", mapa[i].nome);
+        printf("Cor do exército: %s\n", mapa[i].cor);
+        printf("Tropas: %d\n", mapa[i].tropas);
+        printf("---------------------------------\n");
+    }
+
+    printf("\nCadastro concluído com sucesso!\n");
+    printf("==================================\n");
+
+    return 0;
+}
+
+
